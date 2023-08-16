@@ -7,24 +7,24 @@
                         <h4>Events</h4>
                     </div>
                     <div class="align-items-center col">
-                        <button data-bs-toggle="modal" data-bs-target="#create-modal" class="float-end btn m-0 btn-sm bg-gradient-primary">Create</button>
+                        <button data-bs-toggle="modal" data-bs-target="#create-modal"
+                            class="float-end btn m-0 btn-sm bg-gradient-primary">Create</button>
                     </div>
                 </div>
-                <hr class="bg-dark "/>
+                <hr class="bg-dark " />
                 <table class="table" id="tableData">
                     <thead>
-                    <tr class="bg-light">
-                        <th>No</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Start Date & Time</th>
-                        <th>End Date & Time</th>
-                        <th>Location</th>
-                        <th>Action</th>
-                    </tr>
+                        <tr class="bg-light">
+                            <th>No</th>
+                            <th>Title</th>
+                            <th>Start Date & Time</th>
+                            <th>End Date & Time</th>
+                            <th>Location</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody id="tableList">
-                    {{--Table Data--}}
+                        {{-- Table Data --}}
                     </tbody>
                 </table>
             </div>
@@ -32,12 +32,10 @@
     </div>
 </div>
 
+@include('Frontend.component.dashboard.create-event');
+
 <script>
-
-
-    
-
-     getList();
+    getList();
 
 
     async function getList() {
@@ -54,14 +52,20 @@
         tableData.DataTable().destroy();
         tableList.empty();
 
-console.log(res.data);
-        res.data.forEach(function (item, index) {
+        // console.log(res.data);
+        res.data.forEach(function(item, index) {
             let row = `<tr>
                     <td>${index + 1}</td>
                     <td>${item.title}</td>
-                    <td>${item.description} </td>
-                    <td>${item.start_date} ${item.start_time}</td>
-                    <td>${item.end_date} ${item.end_time}</td>
+                    <td>
+                        <span class="bg-primary rounded-3 px-3 py-1 text-light me-2">${item.start_time}</span> 
+                        <span class="bg-primary rounded-3 px-3 py-1 text-light">${item.start_date}</span> 
+                    </td>
+                    <td>
+                        <span class="bg-danger rounded-3 px-3 py-1 text-light me-2">${item.end_time}</span> 
+                        <span class="bg-danger rounded-3 px-3 py-1 text-light">${item.end_date}</span>
+                         
+                    </td>
                     <td>${item.location}</td>
                     <td>
                         <button data-id="${item.id}" data-name="${item.name}" data-email="${item.email}" data-mobile="${item.mobile}" class="btn edit btn-sm btn-outline-success">Edit</button>
@@ -99,7 +103,9 @@ console.log(res.data);
 
 
         tableData.DataTable({
-            order: [[0, 'desc']],
+            order: [
+                [0, 'desc']
+            ],
             lengthMenu: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50],
             language: {
                 paginate: {
@@ -109,5 +115,4 @@ console.log(res.data);
             }
         });
     }
-
 </script>

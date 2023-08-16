@@ -62,3 +62,5 @@ Route::post( '/userUdate', [UserController::class, 'userUdate'] )
 
 Route::get( '/getEvents', [EventController::class, 'getEvents'] )
     ->middleware( [TokenVerificationMiddleware::class] );
+Route::post( '/addEvents', [EventController::class, 'store'] )
+    ->middleware( [TokenVerificationMiddleware::class] );
